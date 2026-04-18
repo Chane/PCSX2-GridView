@@ -1,7 +1,9 @@
 ﻿namespace PCSX2GridView.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
     using System.Reactive.Concurrency;
     using System.Threading.Tasks;
@@ -15,7 +17,7 @@
 
         public MainWindowViewModel()
         {
-            var rootCoverPath = $"{this.RootFilePath}/Covers";
+            var rootCoverPath = Path.Combine(this.RootFilePath, "Covers");
             this.Initialize(
                 new GameMediaService(
                     new PhysicalFileProvider(this.RootFilePath)),
@@ -32,7 +34,13 @@
 
         public ObservableCollection<LibraryItemViewModel> Games { get; } = new ();
 
-        private string RootFilePath => "/home/chane/Games/ROMs/PlayStation2";
+        private string RootFilePath =>
+            Environment.GetEnvironmentVariable("PCSX2_GRIDVIEW_LIBRARY_PATH")
+            ?? Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                "Games",
+                "ROMs",
+                "PlayStation2");
 
         public void OnClickCommand()
         {
@@ -68,7 +76,7 @@
                 var item = new LibraryItemViewModel
                 {
                     GameName = game.FileName,
-                    PhysicalPath = $"{this.RootFilePath}/{game.FileName}",
+                    PhysicalPath = Path.Combine(this.RootFilePath, game.FileName),
                     CoverArt = game.CoverArt,
                     AssetService = this.assetService,
                 };
