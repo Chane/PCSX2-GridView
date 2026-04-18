@@ -8,7 +8,7 @@ namespace PCSX2GridView
     using PCSX2GridView.Views;
 
     [ExcludeFromCodeCoverage(Justification = "Avalonia Scaffolding")]
-    public class App : Application
+    public partial class App : Application
     {
         public override void Initialize()
         {

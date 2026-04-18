@@ -28,7 +28,7 @@
             <Image Source="../Assets/refresh.png" />
         </Button>
         <ScrollViewer Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" Name="GridScrollViewer">
-            <ItemsControl Margin="0" Items="{Binding Games}">
+            <ItemsControl Margin="0" ItemsSource="{Binding Games}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"
